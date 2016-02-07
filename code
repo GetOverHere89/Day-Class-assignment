@@ -1,0 +1,106 @@
+/* Ethan Forbes
+   IT 145
+   The purpose of this program is to create a class Day that will perform
+   multiple tasks regarding the day of the week. */
+   
+import java.util.*; //allows for the scanner class
+
+
+public class DayProgram
+{
+   static Scanner keyboard = new Scanner(System.in); //setup for user input
+   
+   
+   public static class Day //user-defined class create an object of type Day and perform multiple operations with it
+   {
+       String[] weekDays = {"Sun" , "Mon", "Tues", "Weds", "Thurs", "Fri", "Sat"}; //array to hold the days of the week
+ 
+      int setDay = 0; //holds number corresponding to the index of the current day of the week from array weekDays
+      
+      public Day(String today) //constructor to set the original day and instantiate the object
+      {
+         for (int i = 0; i < weekDays.length; i++) //for statement runs through all the indices of weekDays while the if statement
+         {                                         // compares the user input to the index of the array and sets it to the matching one.
+            if (today.equals(weekDays[i]))
+               {
+                  setDay = i;
+                  return;
+               }
+         }
+         System.out.println("That is not a valid day.");
+      }
+      
+      public void printDay() //print out the current day
+      {
+         if (setDay <= weekDays.length)      //if statement checks to make sure the day is valid, then prints it, if it is not valid, return error message
+         {
+            System.out.println("Today is " + weekDays[setDay]);
+         }
+         else System.out.println("Day is not valid");
+      }
+      
+      public int setDay() //change the day to a different day
+      {
+         
+         String newDay = keyboard.next(); //receive user input for new day
+         
+         for (int i = 0; i <= weekDays.length; i++) //for statement runs through weekDays, while if statement matches newDay to the corresponding
+         {                                          //index of the array and sets setDay to the new day. return error message if the day is not valid
+            if (newDay.equals(weekDays[i]))
+            {
+               setDay = i;
+               return setDay;
+            }
+         }
+         
+         System.out.println("Invalid Day entered");
+         return 0;  
+      }
+      
+      public String tomorrow() //calculate and display the next day
+      {
+         return weekDays[(setDay + 1)%weekDays.length];
+      }
+      
+      public String yesterday() //calculate and display yesterday
+      {
+         return weekDays[(setDay - 1)%weekDays.length];
+      }
+      
+      public String findDay(int x) //receive input from user, and display the day based on the current day plus number of days the user input.
+      {
+         return weekDays[(setDay + x)%weekDays.length];
+      } 
+      
+      public String returnDay() //return the current day.
+      {
+         return weekDays[setDay];
+      }
+         
+         
+     }
+   public static void main(String[] args) //the following method main will call the constructor and all of the methods from the class Day.
+   {
+       Day day = new Day("Fri");
+      
+       day.printDay();
+      
+       System.out.println("Please change the day of the week.");
+      
+       day.setDay();
+         
+       day.printDay();
+         
+       System.out.println(day.returnDay());
+         
+       System.out.println(day.tomorrow());
+         
+       System.out.println(day.yesterday());
+       
+       System.out.println("Please enter number of days and I will tell you what day of the week it will be.");
+         
+       System.out.println(day.findDay(keyboard.nextInt()));
+     
+      
+    }        
+}
